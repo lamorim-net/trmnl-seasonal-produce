@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel='stylesheet' href='https://usetrmnl.com/css/latest/plugins.css'>
+    <script src='https://usetrmnl.com/js/latest/plugins.js'></script>
+    <link rel='preconnect' href='https://fonts.googleapis.com'>
+    <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin>
+    <link href='https://fonts.googleapis.com/css2?family=Inter:wght@300;350;375;400;450;600;700&display=swap' rel='stylesheet'>
+    <style>
+.produce-container { display: flex; flex-direction: row; gap: 16px; }
+      .left-col { flex: 1; }
+      .right-col { flex: 1; }
+      .produce-list { list-style: none; padding: 0; margin: 0; }
+      .produce-item { display: flex; align-items: center; margin: 4px 0; }
+      .produce-item .icon { width: 28px; height: 28px; margin-right: 8px; background-size: contain; background-repeat: no-repeat; flex-shrink: 0; }
+      .category-section { margin-bottom: 10px; }
+      .category-title { font-size: 14px; font-weight: 600; margin-bottom: 2px; }
+      .title_bar { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; font-size: 12px; font-weight: 500; }
+      .title_bar .title { font-size: 14px; font-weight: 600; }
+      .title_bar .instance { font-size: 12px; }
+.icon-beet { background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAMAAADXqc3KAAAAP1BMVEUAAACPLF5wCRR4HTFZYDFyGilYAFihTHNzGipfZyFUXS5TXy16KkFwR0JVVVWBIjoAAAAAAAAAAAAAAAAAAAAunSRJAAAAFXRSTlMA/Qzu7V4C/qYVoVvu/AP///////8lN6W/AAAArUlEQVR4nHWQSxKAMAhDI8Xan/b+txWcahHHLLpI4FEALh2oXHIGaoYT71yAwuz8zJLkqg/eTcyNi/h8uBaBcCk7V7hEWE3i6mcDVBs1Ajk7itHC4jlSF2kNIfh6grg9qFYLU38Z6skmw99U0hPvwUijXIMlPQHoAalCxE9Ac/ZAbdc7UfKpPhu6/bBl2SWj2eNvw7evCSWJQqK5xE3Tc634nB1EkOPSx1clcwyc5cEEMf4ZZgcAAAAASUVORK5CYII='); }
+.icon-carrot { background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAMAAADXqc3KAAAAP1BMVEUAAADbZgP1hgztaAAaXwqxUgC5SQANZgVZnRb/AAC5SAAPTge/PwC3TgEGSwd/KgAAAAAAAAAAAAAAAAAAAAAV8fsEAAAAFXRSTlMA+v0K8xGYEvsBYWQE4q0D///////HEj2eAAAAt0lEQVR4nG2QWxaFIAhFIUQzK+c/23vQMq7lsp9NnIdEr5OohPTGOCWEj0miFNb1c3CGdd5QoWocG8Vz6QbAobiNjC9yNH56oazAzMcsQzv4wssCMUvg+MbAdintEye2Hd7oGQgp9NsGs/R4zVikYQyYI+lYqM3YLrhKHoXN4NKJkgeHxY1h7LheDdBuI/G8NwAXF5RylaPb3s84KsT+v/5zsmqWRidM7U2tk05cWkif5gn7UrfzA1UvBC//P5I2AAAAAElFTkSuQmCC'); }
+.icon-turnip { background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAMAAADXqc3KAAAAP1BMVEUAAADs4dWQd2NgiiqmkWzbtcdvb2+1nY/IrKqoWFY4bweNdl43bAdseDJJdxa0nYgAAAAAAAAAAAAAAAAAAABjbBbUAAAAFXRSTlMA/u/9If4C//4G06VaBv4W//////93ahgwAAAAtklEQVR4nHVRgRKFIAjDSWqa+v9/+yCpzOvt0s6NASLRg5zpAwdl77P8Vr55FXxblcP7dn6LUKvEK3KtM7/Laso3OxgCcQHIewIKy9HARIhpSzFusuH2aEBybjMko9QB4W/BJfDpCVSieyGWYRmGCWrRQgy3ANrZp7CfRTrozROs2z/Fw1o9wS4v26xE0DMSxpVNglhndCm9DFNCWcarc7Q0gWZU6TpGdHq90zB1gJdwe0XmKf0PgVwFJwRwfQMAAAAASUVORK5CYII='); }
+.icon-fennel { background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAMAAADXqc3KAAAAP1BMVEUAAADm78shcAA0bAFWmwUxaQCYtnCyyY8uZwDO3rBjbQRSmQAA/wBQlgBViCFEeRAAAAAAAAAAAAAAAAAAAAAHYdxvAAAAFXRSTlMA/hTlGZ/+/mD+Bl4Bmvv+///////E8365AAABHklEQVR4nE2RCY7FIAxD3WwsKe39b/sdmEoTtQg58JIY4IbA0rogDWeV+waDy8zUbiuhvpbhBA8I18dtmWjJImYTmeZOWtdiqFnCfeWNXKvrlFs0wSx4j9cm+WKpZInKzbM3M2qYqA8olvqEdm7cc2V1IOc0MVMniplHF4OT3dWVPfMmvhCZFF9E4OFGqn0GhyXmjXFVxFu1eq/Cyhqtta1fI8bTN05EOeB1YWda8N84tiuqbWvjip192NwsD/Xd/IFTZ1SiBpR3FGec44M33w1Cf4oT8clklQFzJ5hqbVA+RSpRhhR6jEA7swwtmW+kQVL7U2tIrVctlsb1Lxo93p7X66F98ojt/TER4vqANSKe1+XT92NJd7quXpZu/QeUEwkvpAgfvQAAAABJRU5ErkJggg=='); }
+.icon-leek { background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAMAAADXqc3KAAAAP1BMVEUCAgBuk1SSsGgoOBXa4o81Rh9KYDIkMg9WVgooXxi1xXD/+fIlMxL5+vCmpnEwQRsAAAAAAAAAAAAAAAAAAAAstghyAAAAFXRSTlMB/v3a/ff6WAMJ/gua/QWe//////98vTNpAAAAnElEQVR4nJWS2w7DMAhDTSgkbbP2//+27mWTCnkZihSJI2OLBPjWbqraMeNddVcXcbMaQGe78PgbNFRjm4CK9paYXGVhEmaVS6LBvKGjiBfRHMtP4D1YPO4x1ONO4ikUcLmnUCcoy4IBaFqmSXQdg9KHowg092dd/gS4QTYnAMGWgU2jUdyVf1j5OagAFRaXDqzgT3Be0X67Gz/zAyd1A5C+dFktAAAAAElFTkSuQmCC'); }
+.icon-pumpkin { background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAMAAADXqc3KAAAAP1BMVEX6nCIAAADYdw3neQrUdA3Vdg6vaQdejQ9Zdi1ufBBOby//AADrkQv+sU3//wBTcS0AAAAAAAAAAAAAAAAAAACp2qjaAAAAFXRSTlP+AO0Tn1oD/PQNowEP/wFN//////+G2KbUAAAAq0lEQVR4nK1S2xaDIAwLbbmp0///2zXgxubYm3nAkhDKaUQYqEcdGwwaSylLqJ/CuiXHUXIuKamuLyH1M4vz/QLtggaNZhZpAAulAj8fRUDkDBYi6iTI40Q+v64oVn3zA6IVwbx4XBUL6IarIoo44yER9tuh3YVJ62a5U/jbPE4t/lydWmxHmM5q85FMlDZd5mRfkhiTagkyQjnBAPlHMOSdoW8aHcq40+7LE7tlA2aaT4vmAAAAAElFTkSuQmCC'); }
+.icon-basil { background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAMAAADXqc3KAAAAP1BMVEVroi0AAACEujgtcA81bhSNwjyfymI4cRWHt0tjaQRCext6rENaoBoyaxQA/wC314gAAAAAAAAAAAAAAAAAAAAPPs7IAAAAFXRSTlP+AP0cpf390f4D9/4IYQH9//////+/2Q2AAAABD0lEQVR4nEVSAZLEIAhLEUGrtv//7Qa0d3R2hQZSCOI6Vnr8z/RxfoXGI5Gy1N21XChdb+AOn7Ycw6xBWVFuqSLEFFPRXjMT8QBQYUOIqUPMMvAnAWkNiKoKhIuPip41AR/JnLoBj3gwYj7BwLHY1aURRZqg2T69B0AuEauRmvxZMMG5Tskx4RfQY/LO9qVWwTiQzicleQhsG2yDCVFAoNNh1MYfF5sl1bxWNvjuXo3yyM2OWOGcKQbBHqVlVwQW3rZ1CNEoLg9/+A2lSyAU3g8pyUWAOid9TSElJyEANwt+vnMN1QglcDn3glpjrhnLjFk3VW4CvnLl6rFo7R3hc/srV97/r8Z3U87N6eW7Tj8pNAbhoWhiewAAAABJRU5ErkJggg=='); }
+.icon-spinach { background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAMAAADXqc3KAAAAP1BMVEVqqEgAAQAiWCxQjDyJy1UQXxcPQiRBejYSRSV8wUqo1YcNPyMAVVVjdhIA/wBVqlUAAAAAAAAAAAAAAAAAAABQjFScAAAAFXRSTlP+APT+/hSk/l3//lwDBAED//////8F0GH5AAAA9klEQVR4nF1R0XLDMAgTYLCTruv//+0knGR35cGHJSNkgN2R5V75XGH2XlUrlzvgzkQ3Eeke4YQHQ8mc7mlA8SUQfo6DjIduXm+sxhFD+DGwwxdq3gTBG8cs+HXj6wjEzTgoeiImDnVWTcRFUIatD4pFjHPExENIk21jstGt5qhOQr/g2zg2ESW7cRFUobW47Ob+n+zuYysl7Po5hD0F1bPqnDKswNzz4azSeq7YUB+aIaWyN8EyDRkaL7eS2geHzyV4TEZ4vbIhaHfaGz1wGP6yhjehNNsDu+b/ajt+2jZt2heRsi2b3xVmHxH2+11h/Z9FySv+AJ9oBWwXiUMWAAAAAElFTkSuQmCC'); }
+.icon-asparagus { background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAMAAADXqc3KAAAAP1BMVEUAAABQcglvlxhbbx5RcguWrVc9fQBaZwiEpjkA/wBgoQZchA1cgQ///wBxxgCZzAAAAAAAAAAAAAAAAAAAAABQ+abdAAAAFXRSTlMAYv3woP4EDf8BDmewAQkF//////+8XU21AAAAn0lEQVR4nLXP0Q7DIAgFUPSiqLXb///tLjN1rs2WvYzEFw4giIxouRrQapVrbMAm+ZS0HkQBFdnXdPbqBsapvgpzigjs2m1tugFRveP9nypcCF1jVNd9meTzlRAc1sXuPio48B+TeYyJVzt0drQX5Am+mq13HMCnYp8g/wkKk6UQygkSkykR00/QvkEakAhtgj1BD7Ar6AW4v/kdxjfgAQD+BRG7VDCxAAAAAElFTkSuQmCC'); }
+.icon-strawberry { background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAMAAADXqc3KAAAAP1BMVEUAAADvDwZfyWcDdAFNtFAgliOgFgEEdAQAcwCaDAAAcAB6AAA6rEGEEQAFogWGEwAAAAAAAAAAAAAAAAAAAACtWQo+AAAAFXRSTlMA/v7t/v75HGcZogL+ogVu///////Bi44dAAAA7ElEQVR4nFWRC7KFIAxDS38gT3T/u30J+LsZUSfHtFBFflQrVqtfR2rvzcw6li1U5cDtsLAIDyzHa30CPTRcl4BYsjNZ7XJdRTWsiXSrKGrBD3XXUOdlIo1uEMwrZsHoKGXmImH83F0sGGSPTi8siwhKOLtooEVDRewiSynJHKRunQGU0CAoyWLOBHpb7IYDlal7y2yBAWSKLJD7HkjhFBjG8q7HjPB4Vbb8+EVucACQXH4Rxxg5D2hk+Qhzb8f0/1bkVp5z1gTyQ3I8v2+SfAGMl5wP+QK+beNC6PEC+AtBY/v63BvQOca53c4/zxEHfevTSewAAAAASUVORK5CYII='); }
+.icon-broccoli { background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAMAAADXqc3KAAAAP1BMVEVznGgAAABRaGNeamWNxDFKXWJLYGAfd3eGujWErneQtIV8qz0A//9/fz9VqlX///8AAAAAAAAAAAAAAAAAAABZfccPAAAAFXRSTlP+APUT/qFTA/3///0BBAMB///////SGDQCAAAAzElEQVR4nHWSiQ7DMAhDDYQ0bXf8/9+OI6yHtqhSq2cBDi4oj5Aos9prAiReqDMDzJ0WOQT7FOeuCGURgndN7or2UBC8cEqhwMeecEhuAbSQVpsS1KC1euq3YlvXEF7Rygds6zaV8obZKAmOZpiTL3y1+eg3S7Ok/xful6irgPSH4sNrfRfudt8RBFpLZu+MBbFz5dEG9h2j7Y5zJZ6McmvDn2Hta+0eoHgzP+ZH5IjWNoyssDAumVtWUTC4foeqmPd0o4+TQOGMw+g8H2KgBA0y9k5YAAAAAElFTkSuQmCC'); }
+.icon-blueberry { background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAMAAADXqc3KAAAAP1BMVEUAAQBWbZlyirVRihwuVxMwR3RHehwvRnIbOwgdW29YXGMfUQksQm+drs0aOggvL38AAAAAAAAAAAAAAAAAAAAuvWhbAAAAFXRSTlMB/v79/e3+Y5gMBQ6n/msD//////8TyetNAAAA1klEQVR4nF2QWxbDIAhEgYJoYs3+d1teNk35UM8dBhCA3zj9WKv3fsIzzgUc0Z98MbeXx5/QC9/CcXj9zs4atIfDJOft1dzFK6lOkZkCRBsOPKagRfAoZHKMK+CcsFkVy68WF6iQCwiuWA8zcBowHEiU6WE4Q3hTcOT8H9dCBIt7H2i8uWZvizcRAXJ9bFglJyhx2WPCKEMBqopyhGMiVUQrOwRKgC3k0HeppwNF4djTJs+xjY/abCooYnPLNz8EdKpjqKovr/5hS3e88/YdHtXhZFzXjT+lSAaTLonc9wAAAABJRU5ErkJggg=='); }
+.icon-raspberry { background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAMAAADXqc3KAAAAP1BMVEUAAABIiTUpbgjTNTjtOUdYlEgbbAOuMCX0T18hZwA8giWxLBvuDg8gZgCsLiWqLSQAAAAAAAAAAAAAAAAAAAA+n13NAAAAFXRSTlMA/vL+/v4P7P5b/hMIpmOh//////96TNlpAAAA5ElEQVR4nG1RWZYEIQhDRCn3+992gjhd1Us+1JeQoEj0RP5x8nPOpeScv/jC/ygPPg/myiHUgK08HKgLCQgpBL6zUL4pwAR39Gzph09cXwKkUdOmzwah96VrKUOtCTT6oBMP6jMCoiIQOKW606y5xkuuS6JE2vXbgICpoGAR6BQclnQMWKBS8GecJAHibkR0G2gpQiI8pp+HsE1xWZR1h80Mya9kzZEjfgFPQpApbenmYTChYuL5TNAFewfzGK95N4SpWr1of/vVjrQdFLXZ394/1KhphEsnfQDKnK016p9Kf9scfzf5B2ECTsqoAAAAAElFTkSuQmCC'); }
+.icon-blackberry { background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAMAAADXqc3KAAAAP1BMVEUDBANPcB5dOU2HRmAvTxYpMTNxQ1YjMyojMC0UVApbgR0kQhQjQRRdXV2jcIUbG1kAAAAAAAAAAAAAAAAAAAA/QxTcAAAAFXRSTlMC/v7++PH+X6ET/WigAv0I//////+NOtjSAAAA8ElEQVR4nGVRi5aFIAhEEMVs6///dmfQu7fOcioLmEcg8hdjn/2cYw55xYg6vTLOR/88J1OllFpq3+kf3EweSJfjKHV+EV52CDH1Iyi9HuUbmypc3UmduXykq2iXNTVRSEgWalC3ezM1VbPUPlJiyB3aVIDAoSXdogbt0AvdKPEA29KBW28XmpuCDjq6mPjfjvbLKE6ZhUBhSHd+A6JUaUthFdKQriBTTbMQt+w20OHiYNfIQ5BSJ6jxpY+9GWrkPyiNoU/GXlJ3d1t0mNjawGe0vryS6L3RIB20WXgA5L4DdHTn8j9YA+B+Z4nvEc/UL90QBobMc/xiAAAAAElFTkSuQmCC'); }
+.icon-tomato { background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAMAAADXqc3KAAAAP1BMVEXoAgIABASiBQGgAgALWRqVBgCSBgEcUyxpJhTuAAAUSSb0WlpxAAAJUCkAlU8Zgk0AAAAAAAAAAAAAAAAAAAC4B49YAAAAFXRSTlP+AO0UFlef+PkCl/4CaA7////////aNmB6AAAAsklEQVR4nJVSWwKDIAzrg4Iw1PvfdqHgdBM/Fj9qk7RWCrEj4OFSxksDOe1JSCmcmQsllTVsZd/LFlYkQwgV3kTLAOpqcEE50yIAEQkhGucmKJtzJyRyzdT4nr+uilJW6dzBt4huxPHq/dSglfzyvYRMbnb/CsUZ73P/LTy2ehTmU8Gv83GNeFrS/pzjXRHFWdV8U3CG6qv97ibwq++8ssZjgaAtg++XAVGtaRJNc3MyvwGhKwPTndHeNgAAAABJRU5ErkJggg=='); }
+.icon-cucumber { background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAMAAADXqc3KAAAAP1BMVEUYXycMYhZIiy8JSyw3gSEAPDkFSC1ooFgAVVUA/wBVqgB//wAAAAAuehwjayUQWCsAAAAAAAAAAAAAAAAAAACCEaqOAAAAFXRSTlPxEP5g/guf/QMBAwIA/v7+//////+cSmMtAAAAxElEQVR4nG2S2wLDIAhDo1LbbqD//7cj1M1e5kMfTgIELfRyNk0VqIvuuPBFEzoaUBRXXtBWyZLbggdfs1huBU9uZhkVf/lZOHh2Lv7pP2FwC78BCWeOwb1gxA1O6oGyoNfXhsF7czj69PrWqDh4CBJ9ku4UgsdY4RDyxIrgEiMokPNg41xBBKIf4WdFAg6/QSZX3wTZ/REJkytKt8N/7kOhwtif4pm7wBWePFpNvs3XwRKh5LvXFBjXn//O40r4wxS9nQ8DnhSjRmPLrgAAAABJRU5ErkJggg=='); }
+.icon-zucchini { background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAMAAADXqc3KAAAAP1BMVEUSUg0LXAkGSQkGSAkAPQBijDt2n1OLqG0CPwIAAABLeyNFdRxUgywUVg0HVQUwaBYAAAAAAAAAAAAAAAAAAADw4HN8AAAAFXRSTlPsF5tVCf3+/F0A/f39/gf9//////9WuD9VAAAA1klEQVR4nHVRURbCIAwLhTlpC9z/tqYbOkXlPT5I0jQtqH8OfoEi5QfRk+gN+YsoVdpwva9EqQnq46uiEx+q1hYi9PCo6PjUd+rNteX3VL3WjKZu2qReFYSTADdTHUjXgKl2oXxz88DTJE4X3zcz6nO8McNwqn134mDj8tpVxrAt7InLgZ+EMCTVHpNNPIgeywnQdUTQOomOZs7wJEbLT7yCbS18eGeeSWTqKfdNG/OX1x4gXCYPbaS/4UFESgNtLp+jB0cA5Wn5McQuIIv8qODvU53WigeWfhNFDXH75QAAAABJRU5ErkJggg=='); }
+.icon-corn { background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAMAAADXqc3KAAAAP1BMVEUAAACWqjbVzEl7eyB7li/Qt1F5lS7//wCInDa2sESqqlW6xD15mDB5lS8A/wBqamoAAAAAAAAAAAAAAAAAAAAPSLtgAAAAFXRSTlMA+f4D5fxgARX9A/0hmwEC//////9iLOY2AAAAwUlEQVR4nGWRSxLDIAxDJfMJBGjuf9uKpJ0BxwsWfiPJ2MC/juc94OvCqBU4ff9EZkqxw0kOlFhTYj7CDsIUWOJ4eZWYzFJkR3gLrJIufo4kAVUdnzW6304T5NVrOpmcwEis4HEymgDdJ+SEZsxlDdEcrEqQZmzTBgzSUhPI4VrAB1H2d8o204yQvQRNYMvu016CFov/BWZf05Z97Z13X2Ddx73aH8ivrVPZTU7ufkrRLuIo/rAiE5xwdxUIMsO59L9+FgSFbmknYwAAAABJRU5ErkJggg=='); }
+.icon-eggplant { background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAMAAADXqc3KAAAAP1BMVEUEAQNgNV80HzIvGyxvlhVxSmxVA1WObI0tGixqkwx/fwqNsyqghJ9ljhBpkQ5ZaiAAAAAAAAAAAAAAAAAAAACRqgNSAAAAFXRSTlMC/u1h+/0E/qRiA/3/Mab0///////4MR3YAAAApklEQVR4nJWQUQ7EIAgFQaHYqu39b7uA1bjRZLN+mGbeY2wA+ONccNYdVk50bupQKdNmpN6U871y1QDsTA9RhrwGKaBGNKkOu2JARCLuwdExIAsy4zOpYrK2FNYbU2s6NcxFDGOIl2OHKmFvWwDjQZbytn3ATcHMIr3tA/6CBjzRLmqmLx7f/wwLP3bB6KsLJpyg9/VjjASrD9422vAM+0pSHCv+cT7PDwPAG8W5NgAAAABJRU5ErkJggg=='); }
+.icon-garlic { background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAMAAADXqc3KAAAAP1BMVEUAAADp1bXy58p3ZmHKtZuNall6VEaniHOZYFq4nod3UUNwSzF3UUOBXU//AAD///8AAAAAAAAAAAAAAAAAAAAQ/z9dAAAAFXRSTlMA/v4Q/vjc/wr+lC1kawEB///////y2xu7AAAA50lEQVR4nG2SWWLDIAxEEdrY6tz/thnJxHHd6sPAvEFC4FJ2tLJUR+HyDG5D3f7IcDbTrv+BqeIAxwM0Bug6j0eRibVTpPoFjlbKMiHp1uJ83/yFB3QKsvjahQPhpFRBehW3tQkXNsiVpIJhdONMAr3XusVzpkGOFjqdehWphK8x2lkOhSJRjGGi2qMzk7SmAE5pi2RKe8MNVHQ6NS1Z4XTEQifAtSMNWT1A1PikojxcpEQreLhLgLXHlzS6fw29WSUy6njFpYC47CoxOvTrek3dQV1dbfDt2htYBn6K22Pl5CcjXzmWb6fWBj+C5VjmAAAAAElFTkSuQmCC'); }
+.icon-celery { background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAMAAADXqc3KAAAAP1BMVEUCAgC3zS9pkgwdbACNrR/D1zcpYADQ31glWwEfVwBHeQVZXgC1y0NEdAAA/wB/f38AAAAAAAAAAAAAAAAAAAB4yepEAAAAFXRSTlMA/vwS/v7x/WGW9QP+nwEC///////gKzI8AAAA40lEQVR4nG2RgZKDMAhEYSGEoL3+/98WokY7PSbqyGNhRaIzfBzhJO5XkoTEEAaLMAlFZTK2TWhEz3dQNwfDabs0hg6dZwRecjaqTvsJ1Hy1B14efWbRd5Ojj5ArY2QGXKCH/92KNLQABslyO0z7Htw4gdp7AXLjzmgJ9gRySWRLkMnGXO1ukIrIak2g+Uy/J9hoVLUyT2hrVb/gS9FU6zDHfyBFPyAtNRS4W5WryqAcT1dr6fM7mkLr/vwOMZ298mqwVZ8Fc0iOr9mDHsBTUqtqKbhXOCWGHAHg6Wn+3WFHXJY+R8UHMsW3BvgAAAAASUVORK5CYII='); }
+      .category-section { margin-bottom: 10px; }
+      .category-title { font-size: 13px; font-weight: 600; display: block; margin-bottom: 2px; }
+      
+    
+      /* Added custom spacing and bottom bar styling */
+      .right-col { margin-top: 12px; }
+      .title_bar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 12px;
+        font-size: 12px;
+        font-weight: 500;
+      }
+      .title_bar .title-wrapper {
+        display: flex;
+        align-items: center;
+      }
+      .title_bar .title-wrapper .icon {
+        width: 16px;
+        height: 16px;
+        margin-right: 6px;
+        background-size: contain;
+        background-repeat: no-repeat;
+      }
+
+  /* Additional spacing for fruits and categories */
+  .right-col { margin-top: 16px; }
+  .category-section { margin-bottom: 12px; }
+  .category-title { margin-bottom: 4px; }
+  
+  /* Ensure bottom bar always visible */
+  .layout { padding-bottom: 12px; }
+  .title_bar { margin-top: 16px; padding-top: 8px; }
+  .title_bar .title-wrapper .icon { width: 16px; height: 16px; margin-right: 4px; }
+
+  /* Layout adjustments */
+  .produce-container { display: flex; gap: 16px; }
+  .left-col { flex: 1; }
+  .right-col { flex: 1; margin-top: 20px; max-width: 50%; }
+
+  .category-section { margin-bottom: 12px; }
+  .category-title { font-size: 13px; font-weight: 600; margin-bottom: 4px; }
+  .category-content { font-size: 12px; line-height: 1.4; }
+
+  /* Ensure bottom bar is visible and nicely spaced */
+  .layout { padding-bottom: 14px; }
+  .title_bar { margin-top: 20px; padding-top: 6px; font-size: 12px; font-weight: 500; }
+  .title_bar .title-wrapper .icon { width: 16px; height: 16px; margin-right: 4px; background-size: contain; background-repeat: no-repeat; }
+    </style>
+  </head>
+  <body class='environment trmnl'>
+    <div class='screen'>
+      <div class='view view--full'>
+        <div class='layout'>
+          <div class='columns'>
+            <div class='column'>
+              <div class='markdown'>
+{% assign current_month = "now" | date: '%s' | plus: trmnl.user.utc_offset | date: '%m' %}
+{% case current_month %}
+
+{% when "01" %}
+  <span class="title">In‑Season Produce – January</span>
+  <div class="produce-container">
+    <div class="left-col">
+      <ul class="produce-list">
+            <li class="produce-item"><span class="icon icon-beet"></span><span>Beets</span></li>
+            <li class="produce-item"><span class="icon icon-carrot"></span><span>Carrots</span></li>
+            <li class="produce-item"><span class="icon icon-turnip"></span><span>Turnips</span></li>
+            <li class="produce-item"><span class="icon icon-fennel"></span><span>Fennel</span></li>
+            <li class="produce-item"><span class="icon icon-leek"></span><span>Leeks</span></li>
+            <li class="produce-item"><span class="icon icon-pumpkin"></span><span>Winter squash</span></li>
+            <li class="produce-item"><span class="icon icon-basil"></span><span>Basil</span></li>
+            <li class="produce-item"><span class="icon icon-spinach"></span><span>Spinach</span></li>
+      </ul>
+    </div>
+    <div class="right-col">
+          <div class="category-section">
+            <span class="category-title">Fruits</span>
+            <div class="category-content">Apples, Pears</div>
+          </div>
+          <div class="category-section">
+            <span class="category-title">Vegetables</span>
+            <div class="category-content">Kale, Onions, Potatoes, Cabbage, Radishes, Mushrooms, Chard</div>
+          </div>
+          <div class="category-section">
+            <span class="category-title">Herbs & Specialties</span>
+            <div class="category-content">Rosemary, Sage, Parsley</div>
+          </div>
+    </div>
+  </div>
+
+{% when "02" %}
+  <span class="title">In‑Season Produce – February</span>
+  <div class="produce-container">
+    <div class="left-col">
+      <ul class="produce-list">
+            <li class="produce-item"><span class="icon icon-beet"></span><span>Beets</span></li>
+            <li class="produce-item"><span class="icon icon-carrot"></span><span>Carrots</span></li>
+            <li class="produce-item"><span class="icon icon-turnip"></span><span>Turnips</span></li>
+            <li class="produce-item"><span class="icon icon-fennel"></span><span>Fennel</span></li>
+            <li class="produce-item"><span class="icon icon-leek"></span><span>Leeks</span></li>
+            <li class="produce-item"><span class="icon icon-pumpkin"></span><span>Winter squash</span></li>
+            <li class="produce-item"><span class="icon icon-basil"></span><span>Basil</span></li>
+            <li class="produce-item"><span class="icon icon-spinach"></span><span>Spinach</span></li>
+      </ul>
+    </div>
+    <div class="right-col">
+          <div class="category-section">
+            <span class="category-title">Fruits</span>
+            <div class="category-content">Apples, Pears</div>
+          </div>
+          <div class="category-section">
+            <span class="category-title">Vegetables</span>
+            <div class="category-content">Kale, Onions, Potatoes, Cabbage, Radishes, Mushrooms, Chard</div>
+          </div>
+          <div class="category-section">
+            <span class="category-title">Herbs & Specialties</span>
+            <div class="category-content">Rosemary, Sage, Parsley</div>
+          </div>
+    </div>
+  </div>
+
+{% when "03" %}
+  <span class="title">In‑Season Produce – March</span>
+  <div class="produce-container">
+    <div class="left-col">
+      <ul class="produce-list">
+            <li class="produce-item"><span class="icon icon-asparagus"></span><span>Asparagus</span></li>
+            <li class="produce-item"><span class="icon icon-spinach"></span><span>Spinach</span></li>
+            <li class="produce-item"><span class="icon icon-fennel"></span><span>Fennel</span></li>
+            <li class="produce-item"><span class="icon icon-leek"></span><span>Leeks</span></li>
+            <li class="produce-item"><span class="icon icon-basil"></span><span>Basil</span></li>
+      </ul>
+    </div>
+    <div class="right-col">
+          <div class="category-section">
+            <span class="category-title">Fruits</span>
+            <div class="category-content">Rhubarb</div>
+          </div>
+          <div class="category-section">
+            <span class="category-title">Vegetables</span>
+            <div class="category-content">Radishes, Peas, Lettuce, Mushrooms</div>
+          </div>
+          <div class="category-section">
+            <span class="category-title">Herbs & Specialties</span>
+            <div class="category-content">Mint, Rosemary, Parsley</div>
+          </div>
+    </div>
+  </div>
+
+{% when "04" %}
+  <span class="title">In‑Season Produce – April</span>
+  <div class="produce-container">
+    <div class="left-col">
+      <ul class="produce-list">
+            <li class="produce-item"><span class="icon icon-asparagus"></span><span>Asparagus</span></li>
+            <li class="produce-item"><span class="icon icon-spinach"></span><span>Spinach</span></li>
+            <li class="produce-item"><span class="icon icon-fennel"></span><span>Fennel</span></li>
+            <li class="produce-item"><span class="icon icon-leek"></span><span>Leeks</span></li>
+            <li class="produce-item"><span class="icon icon-basil"></span><span>Basil</span></li>
+      </ul>
+    </div>
+    <div class="right-col">
+          <div class="category-section">
+            <span class="category-title">Fruits</span>
+            <div class="category-content">Rhubarb</div>
+          </div>
+          <div class="category-section">
+            <span class="category-title">Vegetables</span>
+            <div class="category-content">Radishes, Peas, Lettuce, Mushrooms, Broccoli, Cabbage</div>
+          </div>
+          <div class="category-section">
+            <span class="category-title">Herbs & Specialties</span>
+            <div class="category-content">Mint, Rosemary, Parsley</div>
+          </div>
+    </div>
+  </div>
+
+{% when "05" %}
+  <span class="title">In‑Season Produce – May</span>
+  <div class="produce-container">
+    <div class="left-col">
+      <ul class="produce-list">
+            <li class="produce-item"><span class="icon icon-asparagus"></span><span>Asparagus</span></li>
+            <li class="produce-item"><span class="icon icon-spinach"></span><span>Spinach</span></li>
+            <li class="produce-item"><span class="icon icon-basil"></span><span>Basil</span></li>
+            <li class="produce-item"><span class="icon icon-fennel"></span><span>Fennel</span></li>
+            <li class="produce-item"><span class="icon icon-strawberry"></span><span>Strawberries</span></li>
+            <li class="produce-item"><span class="icon icon-broccoli"></span><span>Broccoli</span></li>
+            <li class="produce-item"><span class="icon icon-beet"></span><span>Beets</span></li>
+            <li class="produce-item"><span class="icon icon-carrot"></span><span>Carrots</span></li>
+      </ul>
+    </div>
+    <div class="right-col">
+          <div class="category-section">
+            <span class="category-title">Fruits</span>
+            <div class="category-content">Rhubarb, Cherries</div>
+          </div>
+          <div class="category-section">
+            <span class="category-title">Vegetables</span>
+            <div class="category-content">Peas, Lettuce, Radishes, Chard, Collards, Cauliflower</div>
+          </div>
+          <div class="category-section">
+            <span class="category-title">Herbs & Specialties</span>
+            <div class="category-content">Mint, Parsley, Oregano</div>
+          </div>
+    </div>
+  </div>
+
+{% when "06" %}
+  <span class="title">In‑Season Produce – June</span>
+  <div class="produce-container">
+    <div class="left-col">
+      <ul class="produce-list">
+            <li class="produce-item"><span class="icon icon-blueberry"></span><span>Blueberries</span></li>
+            <li class="produce-item"><span class="icon icon-raspberry"></span><span>Raspberries</span></li>
+            <li class="produce-item"><span class="icon icon-strawberry"></span><span>Strawberries</span></li>
+            <li class="produce-item"><span class="icon icon-broccoli"></span><span>Broccoli</span></li>
+            <li class="produce-item"><span class="icon icon-beet"></span><span>Beets</span></li>
+            <li class="produce-item"><span class="icon icon-carrot"></span><span>Carrots</span></li>
+            <li class="produce-item"><span class="icon icon-cucumber"></span><span>Cucumbers</span></li>
+            <li class="produce-item"><span class="icon icon-spinach"></span><span>Spinach</span></li>
+      </ul>
+    </div>
+    <div class="right-col">
+          <div class="category-section">
+            <span class="category-title">Fruits</span>
+            <div class="category-content">Cherries, Apricots, Blackberries, Plums</div>
+          </div>
+          <div class="category-section">
+            <span class="category-title">Vegetables</span>
+            <div class="category-content">Peas, Lettuce, Radishes, Beans, Chard, Kale</div>
+          </div>
+          <div class="category-section">
+            <span class="category-title">Herbs & Specialties</span>
+            <div class="category-content">Basil, Mint, Parsley, Cilantro</div>
+          </div>
+    </div>
+  </div>
+
+{% when "07" %}
+  <span class="title">In‑Season Produce – July</span>
+  <div class="produce-container">
+    <div class="left-col">
+      <ul class="produce-list">
+            <li class="produce-item"><span class="icon icon-blueberry"></span><span>Blueberries</span></li>
+            <li class="produce-item"><span class="icon icon-raspberry"></span><span>Raspberries</span></li>
+            <li class="produce-item"><span class="icon icon-blackberry"></span><span>Blackberries</span></li>
+            <li class="produce-item"><span class="icon icon-tomato"></span><span>Tomatoes</span></li>
+            <li class="produce-item"><span class="icon icon-cucumber"></span><span>Cucumbers</span></li>
+            <li class="produce-item"><span class="icon icon-zucchini"></span><span>Zucchini</span></li>
+            <li class="produce-item"><span class="icon icon-basil"></span><span>Basil</span></li>
+            <li class="produce-item"><span class="icon icon-spinach"></span><span>Spinach</span></li>
+      </ul>
+    </div>
+    <div class="right-col">
+          <div class="category-section">
+            <span class="category-title">Fruits</span>
+            <div class="category-content">Strawberries, Cherries, Apricots, Plums, Peaches</div>
+          </div>
+          <div class="category-section">
+            <span class="category-title">Vegetables</span>
+            <div class="category-content">Green beans, Snap peas, Cauliflower, Cabbage, Potatoes, Onions, Peppers</div>
+          </div>
+          <div class="category-section">
+            <span class="category-title">Herbs & Specialties</span>
+            <div class="category-content">Parsley, Oregano, Mint, Rosemary</div>
+          </div>
+    </div>
+  </div>
+
+{% when "08" %}
+  <span class="title">In‑Season Produce – August</span>
+  <div class="produce-container">
+    <div class="left-col">
+      <ul class="produce-list">
+            <li class="produce-item"><span class="icon icon-blueberry"></span><span>Blueberries</span></li>
+            <li class="produce-item"><span class="icon icon-raspberry"></span><span>Raspberries</span></li>
+            <li class="produce-item"><span class="icon icon-blackberry"></span><span>Blackberries</span></li>
+            <li class="produce-item"><span class="icon icon-corn"></span><span>Corn</span></li>
+            <li class="produce-item"><span class="icon icon-cucumber"></span><span>Cucumbers</span></li>
+            <li class="produce-item"><span class="icon icon-eggplant"></span><span>Eggplant</span></li>
+            <li class="produce-item"><span class="icon icon-tomato"></span><span>Tomatoes</span></li>
+            <li class="produce-item"><span class="icon icon-zucchini"></span><span>Zucchini</span></li>
+            <li class="produce-item"><span class="icon icon-basil"></span><span>Basil</span></li>
+      </ul>
+    </div>
+    <div class="right-col">
+          <div class="category-section">
+            <span class="category-title">Fruits</span>
+            <div class="category-content">Grapes, Melons (cantaloupe, watermelon, honeydew), Peaches & Nectarines, Pears, Plums, Figs, Apples, Apricots</div>
+          </div>
+          <div class="category-section">
+            <span class="category-title">Vegetables</span>
+            <div class="category-content">Beans (green, shelling, snap peas), Onions, Leeks, Shallots, Peppers & Chiles, Potatoes, Brassicas (broccoli, cauliflower, cabbage, Brussels sprouts), Squash (summer & early winter)</div>
+          </div>
+          <div class="category-section">
+            <span class="category-title">Herbs & Specialties</span>
+            <div class="category-content">Parsley, Oregano, Rosemary, Sage, Mint, Edible flowers, Mushrooms (wild & cultivated)</div>
+          </div>
+    </div>
+  </div>
+
+{% when "09" %}
+  <span class="title">In‑Season Produce – September</span>
+  <div class="produce-container">
+    <div class="left-col">
+      <ul class="produce-list">
+            <li class="produce-item"><span class="icon icon-corn"></span><span>Corn</span></li>
+            <li class="produce-item"><span class="icon icon-cucumber"></span><span>Cucumbers</span></li>
+            <li class="produce-item"><span class="icon icon-eggplant"></span><span>Eggplant</span></li>
+            <li class="produce-item"><span class="icon icon-tomato"></span><span>Tomatoes</span></li>
+            <li class="produce-item"><span class="icon icon-zucchini"></span><span>Zucchini</span></li>
+            <li class="produce-item"><span class="icon icon-basil"></span><span>Basil</span></li>
+            <li class="produce-item"><span class="icon icon-garlic"></span><span>Garlic</span></li>
+            <li class="produce-item"><span class="icon icon-pumpkin"></span><span>Winter squash</span></li>
+      </ul>
+    </div>
+    <div class="right-col">
+          <div class="category-section">
+            <span class="category-title">Fruits</span>
+            <div class="category-content">Apples, Pears, Grapes, Plums</div>
+          </div>
+          <div class="category-section">
+            <span class="category-title">Vegetables</span>
+            <div class="category-content">Peppers, Broccoli, Beans, Lettuce</div>
+          </div>
+          <div class="category-section">
+            <span class="category-title">Herbs & Specialties</span>
+            <div class="category-content">Parsley, Oregano, Rosemary, Mint, Sage</div>
+          </div>
+    </div>
+  </div>
+
+{% when "10" %}
+  <span class="title">In‑Season Produce – October</span>
+  <div class="produce-container">
+    <div class="left-col">
+      <ul class="produce-list">
+            <li class="produce-item"><span class="icon icon-corn"></span><span>Corn</span></li>
+            <li class="produce-item"><span class="icon icon-eggplant"></span><span>Eggplant</span></li>
+            <li class="produce-item"><span class="icon icon-basil"></span><span>Basil</span></li>
+            <li class="produce-item"><span class="icon icon-pumpkin"></span><span>Winter squash</span></li>
+            <li class="produce-item"><span class="icon icon-celery"></span><span>Celery</span></li>
+            <li class="produce-item"><span class="icon icon-broccoli"></span><span>Broccoli</span></li>
+            <li class="produce-item"><span class="icon icon-tomato"></span><span>Tomatoes</span></li>
+      </ul>
+    </div>
+    <div class="right-col">
+          <div class="category-section">
+            <span class="category-title">Fruits</span>
+            <div class="category-content">Apples, Pears, Grapes</div>
+          </div>
+          <div class="category-section">
+            <span class="category-title">Vegetables</span>
+            <div class="category-content">Carrots, Beets, Potatoes, Onions, Kale, Cabbage</div>
+          </div>
+          <div class="category-section">
+            <span class="category-title">Herbs & Specialties</span>
+            <div class="category-content">Sage, Rosemary, Parsley</div>
+          </div>
+    </div>
+  </div>
+
+{% when "11" %}
+  <span class="title">In‑Season Produce – November</span>
+  <div class="produce-container">
+    <div class="left-col">
+      <ul class="produce-list">
+            <li class="produce-item"><span class="icon icon-eggplant"></span><span>Eggplant</span></li>
+            <li class="produce-item"><span class="icon icon-garlic"></span><span>Garlic</span></li>
+            <li class="produce-item"><span class="icon icon-basil"></span><span>Basil</span></li>
+            <li class="produce-item"><span class="icon icon-pumpkin"></span><span>Winter squash</span></li>
+            <li class="produce-item"><span class="icon icon-fennel"></span><span>Fennel</span></li>
+            <li class="produce-item"><span class="icon icon-carrot"></span><span>Carrots</span></li>
+            <li class="produce-item"><span class="icon icon-beet"></span><span>Beets</span></li>
+            <li class="produce-item"><span class="icon icon-spinach"></span><span>Spinach</span></li>
+      </ul>
+    </div>
+    <div class="right-col">
+          <div class="category-section">
+            <span class="category-title">Fruits</span>
+            <div class="category-content">Apples, Pears</div>
+          </div>
+          <div class="category-section">
+            <span class="category-title">Vegetables</span>
+            <div class="category-content">Potatoes, Onions, Kale, Cabbage, Broccoli</div>
+          </div>
+          <div class="category-section">
+            <span class="category-title">Herbs & Specialties</span>
+            <div class="category-content">Sage, Rosemary, Parsley</div>
+          </div>
+    </div>
+  </div>
+
+{% when "12" %}
+  <span class="title">In‑Season Produce – December</span>
+  <div class="produce-container">
+    <div class="left-col">
+      <ul class="produce-list">
+            <li class="produce-item"><span class="icon icon-beet"></span><span>Beets</span></li>
+            <li class="produce-item"><span class="icon icon-carrot"></span><span>Carrots</span></li>
+            <li class="produce-item"><span class="icon icon-turnip"></span><span>Turnips</span></li>
+            <li class="produce-item"><span class="icon icon-fennel"></span><span>Fennel</span></li>
+            <li class="produce-item"><span class="icon icon-leek"></span><span>Leeks</span></li>
+            <li class="produce-item"><span class="icon icon-pumpkin"></span><span>Winter squash</span></li>
+            <li class="produce-item"><span class="icon icon-spinach"></span><span>Spinach</span></li>
+            <li class="produce-item"><span class="icon icon-basil"></span><span>Basil</span></li>
+      </ul>
+    </div>
+    <div class="right-col">
+          <div class="category-section">
+            <span class="category-title">Fruits</span>
+            <div class="category-content">Apples, Pears</div>
+          </div>
+          <div class="category-section">
+            <span class="category-title">Vegetables</span>
+            <div class="category-content">Potatoes, Onions, Kale, Chard</div>
+          </div>
+          <div class="category-section">
+            <span class="category-title">Herbs & Specialties</span>
+            <div class="category-content">Sage, Rosemary, Parsley</div>
+          </div>
+    </div>
+  </div>
+{% endcase %}
+              </div>
+              <div class='title_bar'>
+                <div class='title-wrapper'>
+                  <span class='icon icon-pumpkin'></span>
+                  <span class='title'>Seasonal Produce</span>
+                </div>
+                <span class='instance'>Washington State</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
